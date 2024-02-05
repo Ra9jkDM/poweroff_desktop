@@ -1,0 +1,16 @@
+{
+    "api":
+    [
+        {
+            "name": "OrangePi",
+            "image": "orangepi.png",
+            "api": "https://localhost:4010/"
+        },
+        {
+            "name": "RaspberryPi",
+            "image": "raspberrypi.png",
+            "api": "https://localhost:4020/"
+        }
+    ],
+    "imagePath": "img/"
+}
