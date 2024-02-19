@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QLabel
+from PyQt6.QtWidgets import QLabel, QWidget
 
 def create_title(text):
     label = QLabel(text)
@@ -12,6 +12,7 @@ def create_title(text):
 
 def create_image(image_path: str, size: QSize):
         image = QLabel()
+        image.setAlignment(Qt.AlignmentFlag.AlignCenter)
         pixmap = _create_pixmap(image_path, size)
         image.setPixmap(pixmap)
         return image

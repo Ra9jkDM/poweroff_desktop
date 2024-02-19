@@ -7,7 +7,7 @@ from IPage import IPage
 from Config import Config
 from BaseWidgets import create_image, _create_pixmap
 
-import Pages.Power as Power
+import pages.Power as Power
 
 
 

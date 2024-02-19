@@ -5,8 +5,8 @@ from IPage import IPage
 from Config import Config
 from BaseWidgets import create_title, create_image
 
-import Pages.Login as Login
-import Pages.Sessions as Sessions
+import pages.Login as Login
+import pages.Sessions as Sessions
 
 
 class Power(IPage):

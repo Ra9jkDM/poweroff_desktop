@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout
 
-from Pages.Login import Login
+from pages.Login import Login
 
 class Navigator:
     def __init__(self, window):
@@ -24,7 +24,7 @@ app = QApplication([])
 window = QMainWindow()
 
 window.setWindowTitle("Power Control")
-window.setFixedSize(215, 350)
+window.setFixedSize(265, 370)
 
 if __name__ == "__main__":
     navigator = Navigator(window)
