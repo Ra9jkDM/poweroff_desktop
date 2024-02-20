@@ -48,25 +48,21 @@ class ApiRequests:
         return False
 
     def get(self, url, data={}):
-        response = requests.get(self._get_url(url), headers=self._get_headers(), params=data)
-        print(response.status_code, response.text)
-        if response.status_code == 200:
-            return response
-        elif response.status_code == 401: # Unauthorized
-            if self.relogin():
-                response = requests.get(self._get_url(url), headers=self._get_headers(), params=data)
-                print(response, response.text)
-                return response
-            return False
+        get = lambda: requests.get(self._get_url(url), headers=self._get_headers(), params=data)
+        return self._request(get)
 
     def post(self, url, data={}, json={}):
-        response = requests.post(self._get_url(url), headers=self._get_headers(), data=data, json=json)
+        post = lambda: requests.post(self._get_url(url), headers=self._get_headers(), data=data, json=json)
+        return self._request(post)
+
+    def _request(self, func):
+        response = func()
         print(response.status_code, response.text)
         if response.status_code == 200:
             return response
         elif response.status_code == 401: # Unauthorized
             if self.relogin():
-                response = requests.post(self._get_url(url), headers=self._get_headers(), data=data, json=json)
+                response = func()
                 print(response, response.text)
                 return response
             return False
@@ -88,7 +84,7 @@ class ApiRequests:
     def _get_url(self, url):
         return f"{self.api_url}{url}"
 
-class QtApi: # Выкидывает пользователя, еcли не получилось отправить запрос
+class QtApi: # Выкидывает пользователя на Login.page, еcли не получилось отправить запрос
     def __init__(self, navigator):
         self._api = ApiRequests("")
         self._navigator = navigator
@@ -120,10 +116,10 @@ if __name__ == "__main__":
     api = ApiRequests(URL, t)
 
     user= User(username="bob", password="pwd123")
-    # api.login(user)
+    api.login(user)
     print(api.get("user"))
     print(api.get_token_list())
-    print(api.post("login/delete", json={"tokens": [150, 152]}))
+    print(api.post("login/delete", json={"tokens": [167, 168]}))
 
     # tokens = login("login/token")
     # print(tokens.access_token)
