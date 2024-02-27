@@ -59,6 +59,7 @@ class Power(IPage):
         return self.logout
 
     def _logout(self):
+        self._requests.logout()
         self._navigator.navigate(Login.Login())
 
     def create_sessions_button(self):

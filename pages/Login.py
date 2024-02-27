@@ -16,15 +16,9 @@ class Login(IPage):
     image_size = QSize(200, 200)
     
     def markup(self):
-        r = self._requests.is_logged_in()
-        print(r, r==True)
-        if True:
-            print("fo")
-            # self._navigator.navigate(Power.Power(self._config))
-            power = Power.Power(self._config)
-            power.markup()
-            self.layout = power.layout
-            return
+        if self._requests.is_logged_in():
+            print("Go to main page")
+            self._navigator.add_page_to_queue(Power.Power(self._config))
 
         image = self.create_image()
         servers = self.create_combobox()

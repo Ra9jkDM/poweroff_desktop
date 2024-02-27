@@ -22,6 +22,9 @@ class QtLoginController: # Выкидывает пользователя на Lo
         self._api = ApiRequests(self._config.url, lambda x, y: self._save_tokens(x, y), tokens=tokens)
         return self._api.get("user/") != False
 
+    def logout(self):
+        self._save_tokens("", "")
+
     def login(self, *args, **kwargs):
         self._api = ApiRequests(self._config.url, lambda x, y: self._save_tokens(x, y))
         return self._api.login(*args, **kwargs)

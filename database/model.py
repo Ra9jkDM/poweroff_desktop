@@ -21,7 +21,7 @@ class Settings(Base):
     __tablename__  = "settings"
 
     key: Mapped[String] = mapped_column(String, primary_key=True, nullable=False)
-    value: Mapped[String] = mapped_column(String, unique=True, nullable=False)
+    value: Mapped[String] = mapped_column(String, nullable=False)
 
     def __str__(self):
         return f"Settings(key={self.key}, value={self.value})"
@@ -49,3 +49,5 @@ if __name__ == "__main__":
     create_db()
     # create_data()
     select_all()
+
+# python -m database.model

@@ -9,7 +9,7 @@ from pages.Login import Login
 class Navigator:
     config: Config
     requests: ApiRequests
-    navigation_queue: list
+    navigation_queue: list = []
 
     def __init__(self, window):
         self._window = window
@@ -31,9 +31,15 @@ class Navigator:
 
         self._window.setCentralWidget(widget)
         print("end", obj)
-        
 
-    def add_page_to_queue(self, page):
+        if len(self.navigation_queue) > 0:
+            page = self.navigation_queue[0]
+            del self.navigation_queue[0]
+            self.navigate(page)
+
+
+    # in need navigation in func 'markup'
+    def add_page_to_queue(self, page): 
         self.navigation_queue.append(page)
 
 
