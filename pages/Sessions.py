@@ -20,7 +20,6 @@ class Sessions(IPage):
         delete = self.create_delete_all_button()
         back = self.create_back_button()
 
-        # Todo scrolling list of elements with "Delete" buttons
         mas=[]
         for i in range(10):
             session = SessionDTO(id=i, date=f"{i} Feb, 2024 - 12:28")

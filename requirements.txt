@@ -1,6 +1,7 @@
 annotated-types==0.6.0
 certifi==2024.2.2
 charset-normalizer==3.3.2
+greenlet==3.0.3
 guidata==3.1.0
 guiqwt==4.4.4
 h5py==3.10.0
@@ -17,10 +18,13 @@ PyQt5-sip==12.13.0
 PyQt6==6.6.1
 PyQt6-Qt6==6.6.1
 PyQt6-sip==13.6.0
+pysqlcipher3==1.2.0
 PythonQwt==0.11.2
 QtPy==2.4.1
 requests==2.31.0
 scipy==1.12.0
+SQLAlchemy==2.0.27
+sqlcipher3-binary==0.5.2.post2
 tomli==2.0.1
 typing_extensions==4.9.0
 urllib3==2.2.0

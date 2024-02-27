@@ -6,39 +6,46 @@ from sqlalchemy.orm import declarative_base, Mapped, mapped_column, Session
 
 from pysqlcipher3 import dbapi2 as sqlite
 
-# engine = create_engine("sqlite:///power.db")
-db_name = "power_enc.db"
+db_name = "power.db"
 password = "pwd9889"
-# engine = create_engine(f"sqlite+pysqlcipher://:{password}@/{db_name}?cipher=aes-256-cfb&kdf_iter=64000")
-engine = create_engine("sqlite+pysqlcipher://:testing@/foo.db?kdf_iter=256000&cipher_plaintext_header_size=32")
-# cipher=aes-256-cfb&
+ENGINE = create_engine(f"sqlite+pysqlcipher://:{password}@/{db_name}?kdf_iter=256000&cipher_plaintext_header_size=32")
+
+
+def get_engine():
+    return ENGINE
+
+
 Base = declarative_base()
 
-class LoginInformation(Base):
-    __tablename__  = "login_info"
+class Settings(Base):
+    __tablename__  = "settings"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-
-    refresh_token: Mapped[String] = mapped_column(String, unique=True, nullable=False)
-    access_token: Mapped[String] = mapped_column(String, unique=True, nullable=False)
+    key: Mapped[String] = mapped_column(String, primary_key=True, nullable=False)
+    value: Mapped[String] = mapped_column(String, unique=True, nullable=False)
 
     def __str__(self):
-        return f"LoginInfo({self.id}, {self.refresh_token}, {self.access_token})"
+        return f"Settings(key={self.key}, value={self.value})"
 
 def create_db():
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=ENGINE)
 
-    # with Session(autoflush=True, bind=engine) as db:
-    #     info = LoginInformation(refresh_token="test_token_r", access_token="new_ascces_token")
-    #     db.add(info)
-    #     db.commit()
+def create_data():
+    with Session(autoflush=True, bind=ENGINE) as db:
+        s1 = Settings(key="refresh_token", value="SHA1_0823498_grid")
+        s2 = Settings(key="access_token", value="MD4_u9902")
+
+        db.add(s1)
+        db.add(s2)
+        db.commit()
 
 def select_all():
-    with Session(autoflush=True, bind=engine) as db:
-        data = db.query(LoginInformation).all()
+    with Session(autoflush=True, bind=ENGINE) as db:
+        data = db.query(Settings).all()
         
         for i in data:
             print(i)
+
 if __name__ == "__main__":
     create_db()
+    # create_data()
     select_all()
