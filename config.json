@@ -9,7 +9,7 @@
         {
             "name": "RaspberryPi",
             "image": "raspberrypi.png",
-            "api": "https://localhost:4020/"
+            "api": "http://localhost:4000/"
         }
     ],
     "imagePath": "img/"

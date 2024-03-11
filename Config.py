@@ -1,11 +1,14 @@
 import json
+from database.tables.settings import Settings
 
 CONFIG_PATH = "config.json"
 
 class Config:
     def __init__(self):
+        self._settings = Settings()
         self.load_config(CONFIG_PATH)
-        self._api_id = 0
+
+        self.load_api_id()
 
     def load_config(self, path):
         with open(path) as f:
@@ -15,6 +18,12 @@ class Config:
             self._image_path = obj["imagePath"]
             self._apis = obj["api"]
 
+    def load_api_id(self):
+        try:
+            id = self._settings.api_id
+            self.api_id = int(id)
+        except:
+            self.api_id = 0
 
     @property
     def _api(self):
@@ -42,9 +51,10 @@ class Config:
 
     @api_id.setter
     def api_id(self, value):
-        if value < 0 or value > len(self._apis):
+        if not 0 <= value < len(self._apis):
             raise Exception("API list out of range")
 
+        self._settings.api_id = value
         self._api_id = value
 
 if __name__ == "__main__":

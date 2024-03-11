@@ -23,6 +23,16 @@ class Settings:
     def access_token(self, db, value):
         self._set(db, "access_token", value)
 
+    @property
+    @session
+    def api_id(self, db):
+        return self._get_value(db, "api_id")
+
+    @api_id.setter
+    @session
+    def api_id(self, db, value):
+        self._set(db, "api_id", value)
+
         
 
     def _get(self, db, key):
