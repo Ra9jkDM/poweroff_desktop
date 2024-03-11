@@ -7,10 +7,12 @@ from business_logic.api.model import Token
 import pages.Login
 
 class QtLoginController: # Выкидывает пользователя на Login.page, еcли не получилось отправить запрос  
-    def __init__(self, config: Config, navigator):
+    def __init__(self, config: Config):
         self._config = config
-        self._navigator = navigator
         self._settings = Settings()
+
+    def set_navigator(self, navigator):
+        self._navigator = navigator
 
     def _save_tokens(self, refresh_token, access_token):
         print("Save ...")
@@ -48,12 +50,12 @@ class QtLoginController: # Выкидывает пользователя на Lo
         #     self._navigator.navigate("Lost connection !!!") # Отвалился интернет
         return True
 
-class Request:
-    _instance = None
+# class Request:
+#     _instance = None
 
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = QtLoginController(*args, *kwargs)
-        return cls._instance
+#     def __new__(cls, *args, **kwargs):
+#         if not cls._instance:
+#             cls._instance = QtLoginController(*args, *kwargs)
+#         return cls._instance
 
 # make navigator.class static
