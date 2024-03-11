@@ -1,36 +1,25 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout
-
 from business_logic.api.base_requests import ApiRequests
-from business_logic.api.qt_login_controller import QtLoginController
-from Config import Config
-
+import business_logic.general_storage as Storage
 from pages.Login import Login
 
+
 class Navigator:
-    config: Config
-    requests: ApiRequests
     navigation_queue: list = []
 
     def __init__(self, window):
         self._window = window
 
     def navigate(self, obj):
-        print(obj)
-        obj._navigator = self
-        obj._config = self.config
-        obj._requests = self.requests
-
         if obj.layout is None:
             obj.layout = QVBoxLayout()
 
         obj.markup()
-        print("end markup", obj)
 
         widget = QWidget()
         widget.setLayout(obj.layout)
 
         self._window.setCentralWidget(widget)
-        print("end", obj)
 
         if len(self.navigation_queue) > 0:
             page = self.navigation_queue[0]
@@ -46,21 +35,23 @@ class Navigator:
 app = QApplication([])
 window = QMainWindow()
 
-window.setWindowTitle("Power Control")
-window.setFixedSize(265, 370)
+def configure_app():
+    window.setWindowTitle("Power Control")
+    window.setFixedSize(265, 370)
 
-if __name__ == "__main__":
     navigator = Navigator(window)
 
-    config = Config()
-    navigator.config = config
-
-    requests = QtLoginController(config, navigator)
-    navigator.requests = requests
+    storage = Storage.Storage()
+    storage.set_navigator(navigator)
+    storage.set_login_page(Login())
 
     navigator.navigate(Login())
+
+if __name__ == "__main__":
+    configure_app()
 
     window.show()
     app.exec()
 
+    
 # python -m main

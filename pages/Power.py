@@ -8,12 +8,14 @@ from BaseWidgets import create_title, create_image
 import pages.Login as Login
 import pages.Sessions as Sessions
 
+from business_logic.api.requests.power import shutdown, reboot
 
 class Power(IPage):
     image_size = QSize(200, 200)
 
-    def __init__(self, config: Config):
-        self.config = config
+    def __init__(self):
+        super().__init__()
+        self.config = self._storage.config
         self.layout = QGridLayout()
 
     def markup(self):
@@ -45,12 +47,12 @@ class Power(IPage):
 
     def create_shutdown_button(self):
         button = QPushButton("Shutdown")
-        # Todo
+        button.clicked.connect(lambda: shutdown())
         return button
 
     def create_reboot_button(self):
         button = QPushButton("Reboot")
-        # Todo
+        button.clicked.connect(lambda: reboot())
         return button
 
     def create_logout_button(self):
@@ -58,14 +60,14 @@ class Power(IPage):
         self.logout.clicked.connect(lambda: self._logout())
         return self.logout
 
-    def _logout(self):
-        self._requests.logout()
-        self._navigator.navigate(Login.Login())
-
     def create_sessions_button(self):
         self.sessions = QPushButton("Sessions")
         self.sessions.clicked.connect(lambda: self._sessions())
         return self.sessions
 
+    def _logout(self):
+        self._storage.requests.logout()
+        self._storage.navigator.navigate(Login.Login())
+
     def _sessions(self):
-        self._navigator.navigate(Sessions.Sessions(self.config))
+        self._storage.navigator.navigate(Sessions.Sessions())

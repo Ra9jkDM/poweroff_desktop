@@ -1,6 +1,10 @@
+import business_logic.general_storage as Storage
+
 class IPage:
     layout = None
-    _navigator = None
+
+    def __init__(self):
+        self._storage = Storage.Storage()
 
     def markup(self):
         raise Exception("Markup not found.")

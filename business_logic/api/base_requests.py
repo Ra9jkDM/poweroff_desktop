@@ -16,7 +16,6 @@ class ApiRequests:
         
         if response.status_code == 200:
             self.tokens = Token(**response.json())
-            print(self.tokens.refresh_token)
             self._save_tokens()
             return True
         return False

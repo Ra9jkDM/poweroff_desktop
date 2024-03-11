@@ -14,7 +14,6 @@ class Config:
             
             self._image_path = obj["imagePath"]
             self._apis = obj["api"]
-            print(text)
 
 
     @property

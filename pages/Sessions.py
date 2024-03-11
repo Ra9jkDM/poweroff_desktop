@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import (QWidget, QPushButton, QLabel, QLineEdit,
             QComboBox, QHBoxLayout, QVBoxLayout, QGridLayout, QScrollArea)
 
 from IPage import IPage
-from Config import Config
+
 from BaseWidgets import create_title, create_image
 from models.SessionDTO import SessionDTO
 
@@ -11,9 +11,6 @@ import pages.Power as Power
 
 
 class Sessions(IPage):
-
-    def __init__(self, config: Config):
-        self.config = config
 
     def markup(self):
         title = create_title("Sessions")
@@ -40,7 +37,7 @@ class Sessions(IPage):
         return back
 
     def _back(self):
-        self._navigator.navigate(Power.Power(self.config))
+        self._storage.navigator.navigate(Power.Power())
 
     def create_delete_all_button(self):
         delete = QPushButton("Delete all except active")
