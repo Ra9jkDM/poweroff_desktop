@@ -5,7 +5,7 @@ from pages.message import show_error_msg
 
 from business_logic.api.model import Token
 
-class QtLoginController: # Выкидывает пользователя на Login.page, еcли не получилось отправить запрос  
+class QtLoginController:
     _api = None
     
     def __init__(self, config: Config):
@@ -16,7 +16,7 @@ class QtLoginController: # Выкидывает пользователя на Lo
         self._login = login
 
     def _save_tokens(self, refresh_token, access_token):
-        print("Save ...")
+        # print("Save ...")
         self._settings.refresh_token = refresh_token
         self._settings.access_token = access_token
 
@@ -31,19 +31,18 @@ class QtLoginController: # Выкидывает пользователя на Lo
         self._api = ApiRequests(self._config.url, lambda x, y: self._save_tokens(x, y))
         return self._api.login(*args, **kwargs)
 
-    def get(self, *args, **kwargs):
-        if not self._api:
-            self._get_api()
+    def get_token_list(self):
+        result = self._api.get_token_list()
+        self._is_loggin_or_logout(result)
+        return result
 
+    def get(self, *args, **kwargs):
         result = self._api.get(*args, **kwargs)
         self._is_loggin_or_logout(result)
 
         return result
 
     def post(self, *args, **kwargs):
-        if not self._api:
-            self._get_api()
-            
         result = self._api.post(*args, **kwargs)
         self._is_loggin_or_logout(result)
 

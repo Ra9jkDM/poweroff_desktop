@@ -30,19 +30,19 @@ class ApiRequests:
 
     def _request(self, func):
         response = func()
-        print(response.status_code, response.text)
+        # print(response.status_code, response.text)
         if response.status_code == 200:
             return response
         elif response.status_code == 401: # Unauthorized
             if self.relogin():
                 response = func()
-                print(response, response.text)
+                # print(response, response.text)
                 return response
             return False
 
     def relogin(self):
         response = requests.post(self._get_url("login/refresh"), json={"refresh_token": self.tokens.refresh_token})
-        print(response, response.text)
+        # print(response, response.text)
         if response.status_code == 200:
             self.tokens.access_token = response.json()["access_token"]
             self._save_tokens()

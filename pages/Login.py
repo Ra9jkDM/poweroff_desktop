@@ -20,7 +20,7 @@ class Login(IPage):
 
         try:
             if self._storage.requests.is_logged_in():
-                print("Go to main page")
+                # print("Go to main page")
                 self._storage.navigator.add_page_to_queue(Power.Power())
         except:
             show_error_msg("Неполадки с сетью")
@@ -28,9 +28,9 @@ class Login(IPage):
         image = self.create_image()
         servers = self.create_combobox()
         login = self.create_login()
-        login.setText("bob")
+        # login.setText("bob")
         password = self.create_password()
-        password.setText("pwd123")
+        # password.setText("pwd123")
         submit = self.create_login_button()
 
         widgets = [image, servers, login, password, submit]
@@ -71,9 +71,9 @@ class Login(IPage):
         self.image.setPixmap(pixmap)
 
     def _login(self):
-        print("Login action")
-        print(f"Login: {self.login.text()}\nPassword: {self.pwd.text()}") 
-        print("Api url:"+self._storage.config.url)
+        # print("Login action")
+        # print(f"Login: {self.login.text()}\nPassword: {self.pwd.text()}") 
+        # print("Api url:"+self._storage.config.url)
 
         user = User(username=self.login.text(), password=self.pwd.text())
         

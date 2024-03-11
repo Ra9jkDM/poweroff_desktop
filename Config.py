@@ -47,7 +47,7 @@ class Config:
 
     @property
     def api_id(self):
-        return self.api_id
+        return self._api_id
 
     @api_id.setter
     def api_id(self, value):

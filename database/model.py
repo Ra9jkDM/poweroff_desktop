@@ -7,7 +7,7 @@ from sqlalchemy.orm import declarative_base, Mapped, mapped_column, Session
 from pysqlcipher3 import dbapi2 as sqlite
 
 db_name = "power.db"
-password = "pwd9889"
+password = "pwd9889" # Change me!!!
 ENGINE = create_engine(f"sqlite+pysqlcipher://:{password}@/{db_name}?kdf_iter=256000&cipher_plaintext_header_size=32")
 
 
